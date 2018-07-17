@@ -9,12 +9,12 @@
 <p>Статьи:</p>
 <br/>
 <?php foreach ($articles as $article):?>
-     <?= $article['title'] ?>
-     <br/>
-     <?= $article['text'] ?>
-     <br/>
-     <?= $article['date'] ?>
-     <br/>
+    <?= $article['title'] ?>
+    <br/>
+    <?= $article['text'] ?>
+    <br/>
+    <?= $article['date'] ?>
+    <br/>
 <?php endforeach; ?>
 
 <?= $pagination ?>
