@@ -42,6 +42,37 @@ class First extends CI_Controller {
         $this->load->view('articles_view', $data);
     }
 
+
+    function upload_photo(){
+        if(isset($_POST['download'])){
+
+            $config['upload_path']          = './img/photos/';
+            $config['allowed_types']        = 'gif|jpg|png|jpeg';
+            $config['max_size']             = 1000;
+            $config['encrypt_name'] = TRUE;
+            $config['remove_spaces'] = TRUE;
+
+            $this->load->library('upload', $config);
+
+
+            if ( ! $this->upload->do_upload('userfile'))
+            {
+                echo $this->upload->display_errors();
+
+            } else {
+                $image_data =  $this->upload->data();
+                $add['img'] = $image_data['file_name'];
+                $this->db->insert('photos', $add);
+
+                echo "Success";
+            }
+
+
+        } else {
+            $this->load->view('upload_view');
+        }
+    }
+
     function add_article(){
 
         $data['title'] = 'Fifth Article';
