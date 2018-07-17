@@ -61,6 +61,40 @@ class First extends CI_Controller {
 
             } else {
                 $image_data =  $this->upload->data();
+
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = $image_data['full_path'];
+                $config['new_image'] = APPPATH.'../img/photos/thumbs';
+                $config['create_thumb'] = TRUE;
+                $config['maintain_ratio'] = TRUE;
+                $config['width']         = 80;
+                $config['height']       = 80;
+
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+
+                /*
+                $config['source_image'] = $image_data['full_path'];
+                $config['new_image'] = APPPATH.'../img/photos/wm';
+                $config['wm_text'] = 'Copyright 2018 - Inna Tarasyan';
+                $config['wm_type'] = 'text';
+                $config['wm_font_path'] = './system/fonts/texb.ttf';
+
+
+
+                $config['wm_font_size'] = '16';
+                $config['wm_font_color'] = '000000';
+                $config['wm_vrt_alignment'] = 'top';
+                $config['wm_hor_alignment'] = 'center';
+                $config['wm_padding'] = '20';
+
+                $this->image_lib->initialize($config);
+
+                if(!$this->image_lib->watermark()){
+                    echo $this->image_lib->display_errors();
+                }
+                */
+
                 $add['img'] = $image_data['file_name'];
                 $this->db->insert('photos', $add);
 
